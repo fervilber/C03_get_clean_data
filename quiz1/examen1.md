@@ -1,3 +1,4 @@
+
 ```{r}
 ###############################################
 ## codigo para resolver el ejercicio 1  #######
@@ -19,7 +20,7 @@ tmp<-tmp[!is.na(tmp)] # seleccionamos los validos quitamos NA
 # leemos enel code book que un valor de 24 significa que el
 # valor  de la casa es de 1 millon o más.
 tmp<-tmp[tmp>=24]
-# La respuesta de cuantos hay de mas de un millon es 53
+# La respuesta de cuantos hay de mas de un millon es:
 pregunata1<- length(tmp)
 
 # pregunta 2
@@ -54,7 +55,7 @@ datos_excel <- read.xlsx("./data/gas.xlsx", sheetIndex=1,
                          header=TRUE,colIndex=colIndex, rowIndex=rowIndex) 
 #piden evaluar esto;
 sum(datos_excel$Zip*datos_excel$Ext,na.rm=T)
-#el resultado de la suma es 36534720, que es la respuesta a la pregunta
+#el resultado de la suma es la respuesta a la pregunta
 
 
 ####################################################
@@ -85,12 +86,12 @@ xmlSApply(rootNode,xmlValue)
 # como estamos ya en el segundo paso podemos pregntar 
 zip<-xpathSApply(rootNode,"//zipcode",xmlValue)
 # La respuesta a la pregunta es :
-length(zip[zip==21231]) # 127
+length(zip[zip==21231]) 
 
 ## otra forma q no funcion pues no hay elementos <li  class="xxxx"> en el xml
 doc<-xmlTreeParse("./data/restbal1.xml", useInternal=TRUE)
 xpathSApply(doc,"li[@class='zipcode']",xmlValue)
-####################
+
 
 #######################################################
 ##Ejercicio 5
@@ -129,7 +130,7 @@ rm(list=ls())
 
 # lo primero que se me ocurre es usar split
 subset1<-split(DT$pwgtp15,DT$SEX)
-#esto lo dibide en dos, y podemos sacar la media de cada uno
+#esto lo divide en dos, y podemos sacar la media de cada uno
 summary(subset1[[1]])
 summary(subset1[[2]])
 # o como 
