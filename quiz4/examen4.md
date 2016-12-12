@@ -46,11 +46,11 @@ direccion3 <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv"
 archivo3 <- "data/GDP.csv"
 download.file(direccion3, archivo3,method = "wininet")
 GDP <- data.table(read.csv("data/GDP.csv", skip = 4, nrows = 191))
-GDP <- GDP[X != ""] # borro las columnas sin nombre o vacias
-GDP <- GDP[, list(X, X.1, X.3, X.4)]
+GDP <- GDP[X != ""] # borro las filas vacias de la col X
+GDP <- GDP[, list(X, X.1, X.3, X.4)] # me quedo con las columnas especificadas
 setnames(GDP, c("X", "X.1", "X.3", "X.4"), c("CountryCode", "rankingGDP", "Long.Name", "GDP"))
-columnagdp <- as.numeric(gsub(",", "", GDP$GDP))
-mean(columnagdp, na.rm = TRUE)
+columnagdp <- as.numeric(gsub(",", "", GDP$GDP)) # cambio , por nada
+mean(columnagdp, na.rm = TRUE) 
 ```
 
 # Pregunta 3
@@ -63,7 +63,7 @@ Assume that the variable with the country names in it is named countryNames. How
 #grep("^United",countryNames), 3
 #grep("*United",countryNames), 2 
 
-isUnited <- grepl("^United", GDP$Long.Name)
+isUnited <- grepl("^United", GDP$Long.Name) 
 summary(isUnited)
 # grep("^United",countryNames), 3
 ```
@@ -82,12 +82,16 @@ Original data sources:
 
 
 ```{r}
+# Bajar los ficheros
 direccion4 <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv"
 archivo4 <- "data/EDSTATS_Country.csv"
 download.file(direccion4, archivo4,method = "wininet")
 EDSTATS <- data.table(read.csv("data/EDSTATS_Country.csv"))
 
+#juntamos las tablas de datos con merge tomando como Id el CountryCode
 data2 <- merge(GDP, EDSTATS, all = TRUE, by = c("CountryCode"))
+
+#grepl busca coincidencias y devuelve T o F
 FiscalYearEnd <- grepl("fiscal year end", tolower(data2$Special.Notes))
 isJune <- grepl("june", tolower(data2$Special.Notes))
 table(FiscalYearEnd, isJune)
@@ -101,9 +105,14 @@ the data was sampled.
 install.packages("quantmod")
 library(quantmod)
 amzn = getSymbols("AMZN",auto.assign=FALSE)
-sampleTimes = index(amzn) 
+sampleTimes = index(amzn) # es del paquete zoo de series temporales index coge el valor de 
 
 #How many values were collected in 2012? How many values were collected on Mondays in 2012?
 
+# Para crear una tabla de los años con los días de la semana
+ftable(table(year(sampleTimes), weekdays(sampleTimes)))
+
+# Para añadir la suma al final usamos addmargins
 addmargins(table(year(sampleTimes), weekdays(sampleTimes)))
+
 ```
