@@ -145,3 +145,5 @@ library(plyr)
 tidy_dataset <- ddply(mean_and_std, .(activityId, subjectId), .fun=function(x){ colMeans(x[,-c(1:2)]) })
 colnames(tidy_dataset)[-c(1:2)] <- paste(colnames(tidy_dataset)[-c(1:2)], "_mean", sep="")
 saveresults(tidy_dataset,"tidy_dataset")
+# output for the wen submission
+write.table(tidy_dataset,"./results/tidy_dataset1.txt",row.name=FALSE)
