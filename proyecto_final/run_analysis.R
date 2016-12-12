@@ -5,8 +5,9 @@
 # Author: Fervilber
 ##########################################################################################################
 
-This script will perform the following steps on the UCI HAR Dataset downloaded from 
+# This script will perform the following steps on the UCI HAR Dataset downloaded from 
 # https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+# 0. Read data txt files from train and test dir.
 # 1. Merge the training and the test sets to create one data set.
 # 2. Extract only the measurements on the mean and standard deviation for each measurement. 
 # 3. Use descriptive activity names to name the activities in the data set
@@ -113,7 +114,7 @@ saveresults(mean_and_std,"mean_and_std")
 # Merge the finalData set with the acitivityType table to include descriptive activity names
 
 finalData = merge(finalData,activityType,by='activityId',all = TRUE)
-unique(finalData[566])
+# unique(finalData[566])
 
 #4) Appropriately labels the data set with descriptive variable names. 
 # for that we review all names and special character and meke a function for cleaning
